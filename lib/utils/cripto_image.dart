@@ -1,7 +1,5 @@
-
 import 'dart:typed_data';
 import 'package:encrypt/encrypt.dart';
-
 class CriptoImage {
 
   static final initVector = IV.fromSecureRandom(16);
@@ -12,7 +10,7 @@ class CriptoImage {
     return encrypt.encryptBytes(imageBytes, iv: initVector);
   }
 
-  static Uint8List decrypt (Encrypted encryptedImage, Key decriptKey){
+  static Uint8List decrypt(Encrypted encryptedImage, Key decriptKey){
 
     final decripter = Encrypter(new AES(decriptKey));
 

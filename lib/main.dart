@@ -1,4 +1,5 @@
 import 'package:encrypt/encrypt.dart' as encryptLib;
+import 'package:encrypt/encrypt.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cripto/utils/cripto_image.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,20 +20,20 @@ class MyApp extends StatelessWidget {
 }
 
 class ImageCripto extends StatefulWidget {
-  List<int> _imageBytes;
   final _criptographKey = encryptLib.Key.fromSecureRandom(16);
-  encryptLib.Encrypted _encryptedImage;
   @override
   _ImageCriptoState createState() => _ImageCriptoState();
 }
 
 class _ImageCriptoState extends State<ImageCripto> {
+  List<int> _imageBytes;
+  Encrypted _encryptedImage;
   bool hasImage = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text("Criptografia de imagens"),
+            title: Text("Images criptograph"),
             centerTitle: true,
             backgroundColor: Theme.of(context).primaryColor),
         body: Container(
@@ -42,7 +43,7 @@ class _ImageCriptoState extends State<ImageCripto> {
 
   Future getImageBytes() async {
     await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {
-      this.widget._imageBytes = image.readAsBytesSync();
+      this._imageBytes = image.readAsBytesSync();
     });
 
     setState(() {
@@ -50,41 +51,43 @@ class _ImageCriptoState extends State<ImageCripto> {
     });
   }
 
-  void setEncriptedImage(encryptLib.Encrypted encrypted) {
-    this.widget._encryptedImage = encrypted;
+  void setEncriptedImage(Encrypted encrypted) {
+    this._encryptedImage = encrypted;
   }
 
   Widget chooseImage() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Text("Escolha uma imagem ...",
-            style: TextStyle(
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor)),
-        SizedBox(
-          height: 100.0,
-        ),
-        RaisedButton(
-          onPressed: getImageBytes,
-          color: Theme.of(context).primaryColor,
-          child: Text(
-            "Escolher imagem",
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 16.0),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text("Choose an image ...",
+              style: TextStyle(
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor)),
+          SizedBox(
+            height: 100.0,
           ),
-        ),
-      ],
+          RaisedButton(
+            onPressed: getImageBytes,
+            color: Theme.of(context).primaryColor,
+            child: Text(
+              "Escolher imagem",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.0),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget showImage() {
     setEncriptedImage(CriptoImage.encrypt(
-        this.widget._imageBytes, this.widget._criptographKey));
+        this._imageBytes, this.widget._criptographKey));
     return Center(
       child: ListView(
         children: <Widget>[
@@ -100,7 +103,7 @@ class _ImageCriptoState extends State<ImageCripto> {
           ),
           Container(
             child: Image.memory(CriptoImage.decrypt(
-                this.widget._encryptedImage, this.widget._criptographKey)),
+                this._encryptedImage, this.widget._criptographKey)),
             height: 150.0,
             width: 150.0,
           ),

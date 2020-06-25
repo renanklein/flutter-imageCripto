@@ -33,5 +33,3 @@ Just import the package and use the static methods, for example:
       ),
     );
   }
-
-<https://pub.dev/packages/image_cripto>

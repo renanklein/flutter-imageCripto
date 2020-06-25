@@ -6,6 +6,8 @@
 
 This is just a simple library for training purpose that can encrypt/decrypt an image using AES algorithm
 
+## [v1.1.0] (https://github.com/renanklein/flutter-imageCripto/releases/tag/v1.1.0) - 2020-06-25
+
 ## [v1.0](https://github.com/renanklein/flutter-imageCripto/releases/tag/v1.0) - 2020-06-24
 
 # How to use

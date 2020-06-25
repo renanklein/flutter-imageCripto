@@ -1,9 +1,37 @@
 # image_cripto
 
-An app that encrypt/decrypt an image and show it !
+This is just a simple library for training purpose that can encrypt/decrypt an image using AES algorithm
 
-## How to run 
+# How to use
 
-First of all, you need to have flutter setup in your machine
+Just import the package and use the static methods, for example:
 
-To do that just follow the instructions : [Get started](https://flutter.dev/docs/get-started/install)
+`````dart
+ Widget showImage() {
+    setEncriptedImage(CriptoImage.encrypt(
+        this._imageBytes, this.widget._criptographKey));
+    return Center(
+      child: ListView(
+        children: <Widget>[
+          Text(
+            "Imagem descriptografada :",
+            style: TextStyle(
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor),
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          Container(
+            child: Image.memory(CriptoImage.decrypt(
+                this._encryptedImage, this.widget._criptographKey)),
+            height: 150.0,
+            width: 150.0,
+          ),
+        ],
+      ),
+    );
+  }
+
+<https://pub.dev/packages/image_cripto>

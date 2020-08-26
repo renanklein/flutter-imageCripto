@@ -1,3 +1,7 @@
+# v1.2.0
+
+Updates project's dependencies
+
 # v1.0.2
 
 Changes readme
@@ -6,7 +10,7 @@ Changes readme
 
 ## Changes
 
-Updates changelog and changes variable scoipe
+Updates changelog and changes variable scope
 
 # v1.0.0+1
 
